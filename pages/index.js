@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Layout from "@/components/Layout";
 import EventItem from "@/components/EventItem";
-import { NEXT_URL } from "@/config/index";
+import { API_URL } from "@/config/index";
 
 const HomePage = ({ events }) => {
   return (
@@ -25,11 +25,11 @@ const HomePage = ({ events }) => {
 export default HomePage;
 
 export async function getStaticProps() {
-  const res = await fetch(`${NEXT_URL}/api/events`);
+  const res = await fetch(`${API_URL}/events?_sort=date:ASC&_limit=3`);
   const events = await res.json();
 
   return {
-    props: { events: events.slice(0, 3) },
+    props: { events },
     // make request again after 1 sec if data is changed
     revalidate: 1,
   };

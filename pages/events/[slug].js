@@ -1,10 +1,54 @@
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+import { FaPencilAlt, FaTimes } from "react-icons/fa";
+import Link from "next/link";
+import Image from "next/image";
 import Layout from "@/components/Layout";
-import { NEXT_URL } from "@/config/index";
+// import EventMap from "@/components/EventMap";
+import { API_URL } from "@/config/index";
+import styles from "@/styles/Event.module.css";
+import { useRouter } from "next/router";
 
 const EventPage = ({ event }) => {
+  const deleteEvent = (e) => {
+    console.log("delete");
+  };
   return (
     <Layout>
-      <h1>{event.name}</h1>
+      <div className={styles.event}>
+        <div className={styles.controls}>
+          <Link href={`/events/edit/${event.id}`}>
+            <a>
+              <FaPencilAlt /> Edit Event
+            </a>
+          </Link>
+          <a href="#" className={styles.delete} onClick={deleteEvent}>
+            <FaTimes /> Delete Event
+          </a>
+        </div>
+        <span>
+          {new Date(event.date).toLocaleDateString("en-US")} at {event.time}
+        </span>
+        {event.image && (
+          <div className={styles.image}>
+            <Image
+              src={event.image.formats.medium.url}
+              width={960}
+              height={600}
+            />
+          </div>
+        )}
+        <h3>Performers:</h3>
+        <p>{event.performers}</p>
+        <h3>Description:</h3>
+        <p>{event.description}</p>
+        <h3>Venue: {event.venue}</h3>
+        <p>{event.address}</p>
+
+        <Link href="/events">
+          <a className={styles.back}>{"<"} Go Back</a>
+        </Link>
+      </div>
     </Layout>
   );
 };
@@ -14,7 +58,7 @@ export default EventPage;
 //if we want a request to be made in build time we use combination of get static paths and get static props
 
 export async function getStaticPaths() {
-  const res = await fetch(`${NEXT_URL}/api/events`);
+  const res = await fetch(`${API_URL}/events`);
   const events = await res.json();
 
   const paths = events.map((e) => ({
@@ -27,7 +71,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { slug } }) {
-  const response = await fetch(`${NEXT_URL}/api/events/${slug}`);
+  const response = await fetch(`${API_URL}/events?slug=${slug}`);
   const events = await response.json();
   return {
     props: {
