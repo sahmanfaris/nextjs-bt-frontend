@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useContext, useEffect, useState } from 'react'
-// import AuthContext from '@/context/AuthContext'
+import AuthContext from '@/context/AuthContext'
 import { ToastContainer, toast } from 'react-toastify'
 import { FaUser } from 'react-icons/fa'
 import Layout from '@/components/Layout'
@@ -11,13 +11,13 @@ const LoginPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  //   const { login, error } = useContext(AuthContext)
+  const { login, error } = useContext(AuthContext)
 
-  //   useEffect(() => error && toast.error(error))
+  useEffect(() => error && toast.error(error))
 
   const handleSubmit = e => {
     e.preventDefault()
-    // login({ email, password })
+    login({ email, password })
   }
   return (
     <Layout title='User Login'>
