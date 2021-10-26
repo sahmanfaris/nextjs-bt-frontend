@@ -2,7 +2,7 @@ import { FaPencilAlt, FaTimes } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 import Layout from "@/components/Layout";
-// import EventMap from "@/components/EventMap";
+import EventMap from "@/components/EventMap";
 import { API_URL } from "@/config/index";
 import styles from "@/styles/Event.module.css";
 import router, { useRouter } from "next/router";
@@ -15,16 +15,6 @@ const EventPage = ({ event }) => {
   return (
     <Layout>
       <div className={styles.event}>
-        {/* <div className={styles.controls}>
-          <Link href={`/events/edit/${event.id}`}>
-            <a>
-              <FaPencilAlt /> Edit Event
-            </a>
-          </Link>
-          <a href="#" className={styles.delete} onClick={deleteEvent}>
-            <FaTimes /> Delete Event
-          </a>
-        </div> */}
         <span>
           {new Date(event.date).toLocaleDateString("en-US")} at {event.time}
         </span>
@@ -45,6 +35,8 @@ const EventPage = ({ event }) => {
         <p>{event.description}</p>
         <h3>Venue: {event.venue}</h3>
         <p>{event.address}</p>
+
+        <EventMap evt={event} />
 
         <Link href="/events">
           <a className={styles.back}>{"<"} Go Back</a>
