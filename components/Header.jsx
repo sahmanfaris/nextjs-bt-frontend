@@ -1,12 +1,13 @@
-import Link from "next/link";
-import styles from "@/styles/Header.module.css";
-import Search from "./Search";
+import Link from 'next/link'
+import styles from '@/styles/Header.module.css'
+import Search from './Search'
+import { FaSignInAlt, FaSignOutAlt } from 'react-icons/fa'
 
 const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
-        <Link href="/">
+        <Link href='/'>
           <a>DJ Events</a>
         </Link>
       </div>
@@ -14,19 +15,33 @@ const Header = () => {
       <nav>
         <ul>
           <li>
-            <Link href="/events">
+            <Link href='/events'>
               <a>Events</a>
             </Link>
           </li>
           <li>
-            <Link href="/events/add">
+            <Link href='/events/add'>
               <a>Add Event</a>
             </Link>
           </li>
+          <li>
+            <Link href='/account/login'>
+              <a className='btn-secondary btn-icon'>
+                <FaSignInAlt /> Login
+              </a>
+            </Link>
+          </li>
+          {/* <li>
+            <Link href='/account/login'>
+              <a className='btn-secondary btn-icon'>
+                <FaSignOutAlt /> SignUp
+              </a>
+            </Link>
+          </li> */}
         </ul>
       </nav>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
