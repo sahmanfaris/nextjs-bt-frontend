@@ -10,6 +10,7 @@ import Layout from "@/components/Layout";
 import moment from "moment";
 import { FaImage } from "react-icons/fa";
 import Modal from "@/components/Modal";
+import ImageUpload from "@/components/ImageUpload";
 
 const EditEventPage = ({ event }) => {
   const [values, setValues] = useState({
@@ -28,6 +29,13 @@ const EditEventPage = ({ event }) => {
   );
 
   const router = useRouter();
+
+  const imageUploaded = async (e) => {
+    const res = await fetch(`${API_URL}/events/${event.id}`);
+    const data = await res.json();
+    setImagePreview(data.image.formats.thumbnail.url);
+    setShowModal(false);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -165,7 +173,7 @@ const EditEventPage = ({ event }) => {
       </div>
 
       <Modal show={showModal} onClose={() => setShowModal(false)}>
-        IMAGE UPLOAD
+        <ImageUpload evtId={event.id} imageUploaded={imageUploaded} />
       </Modal>
     </Layout>
   );

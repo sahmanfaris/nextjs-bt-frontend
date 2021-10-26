@@ -26,6 +26,7 @@ const EventPage = ({ event }) => {
       }
     }
   };
+
   return (
     <Layout>
       <div className={styles.event}>
