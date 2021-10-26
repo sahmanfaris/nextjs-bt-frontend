@@ -1,4 +1,4 @@
-// import { parseCookies } from '@/helpers/index'
+import { parseCookies } from '@/helpers/index'
 import { useRouter } from 'next/router'
 import Layout from '@/components/Layout'
 // import DashboardEvent from '@/components/DashboardEvent'
@@ -41,22 +41,22 @@ export default function DashboardPage({ events, token }) {
   )
 }
 
-// export async function getServerSideProps({ req }) {
-//   const { token } = parseCookies(req)
+export async function getServerSideProps({ req }) {
+  const { token } = parseCookies(req)
 
-//   const res = await fetch(`${API_URL}/events/me`, {
-//     method: 'GET',
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   })
+  const res = await fetch(`${API_URL}/events/me`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
 
-//   const events = await res.json()
+  const events = await res.json()
 
-//   return {
-//     props: {
-//       events,
-//       token,
-//     },
-//   }
-// }
+  return {
+    props: {
+      events,
+      token,
+    },
+  }
+}
